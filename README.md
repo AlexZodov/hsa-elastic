@@ -24,21 +24,9 @@ Please use english voc. Ang look at google as a ref.
 ## How to test
 1. Interact with endpoint GET `localhost:9999/api/v1/unit-1/autocomlete/<YOUR_SEARCH_VALUE_HERE>`
 2. Observe results
-   3. `localhost:9999/api/v1/unit-1/autocomplete/test` 
+   3. `localhost:9999/api/v1/unit-1/autocomplete/tea` 
    4. ```
       {
-         "total": 1252,
-         "top_10_matches": [
-            "testa",
-            "testability",
-            "testable",
-            "testacea",
-            "testacean",
-            "testaceography",
-            "testaceology",
-            "testaceous",
-            "testaceousness",
-            "testacy"
-         ]
+         "total": 10,
+         "top_10_matches": ["tea","tead","teak","teal","team","tean","teap","tear","teas","teat"]
       }
-      ```
