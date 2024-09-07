@@ -1,0 +1,44 @@
+
+version: '3.8'
+
+services:
+  hsa_elasticsearch_server:
+    container_name: hsa_elasticsearch_server
+    build:          ./server
+    expose:
+      - 3000
+    ports:
+      - 0.0.0.0:9999:3000
+      - 0.0.0.0:9998:9249
+    command:        npm run start:debug
+    volumes:
+      - ./server:/usr/src/app
+    networks:
+      hsa_elasticsearch_net:
+        ipv4_address: 172.16.120.10
+  
+  hsa_elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    container_name: hsa_elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - xpack.security.enabled=false
+    ports:
+      - '9200:9200'
+    volumes:
+      - hsa_elastic:/usr/share/elasticsearch/data
+    networks:
+      hsa_elasticsearch_net:
+        ipv4_address: 172.16.120.11
+
+networks:
+  hsa_elasticsearch_net:
+    name: hsa_elasticsearch_net
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.120.0/24
+
+volumes:
+  hsa_elastic:
